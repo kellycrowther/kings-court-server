@@ -8,6 +8,20 @@ const app = express();
 const server = http.createServer(app);
 const io = socketIo(server);
 
+// pm2 start app.js
+// pm2 save
+// pm2 startup
+
+// Update Security Rules for the app
+// https://us-west-2.console.aws.amazon.com/ec2/home?region=us-west-2#SecurityGroups:search=sg-092aa28889858b7f2;sort=groupId
+// When configuring the security group make sure you open the port on which your Node application will run
+
+// ssh -i "LAComputer.pem" ubuntu@ec2-34-223-91-61.us-west-2.compute.amazonaws.com
+
+app.get("/", function(req, res) {
+  res.send("Hello World");
+});
+
 let lastEmittedData = { racers: [] };
 
 io.on("connection", socket => {
