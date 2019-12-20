@@ -1,13 +1,17 @@
 "use strict";
 
 const dynamodb = require("./dynamodb");
+const tableName = process.env.DYNAMODB_RACES_TABLE;
 
 module.exports.list = (event, context, callback) => {
   const params = {
-    TableName: process.env.DYNAMODB_RACES_TABLE
+    TableName: tableName,
+    FilterExpression: "userId = :val",
+    ExpressionAttributeValues: { ":val": 1 },
+    ReturnConsumedCapacity: "TOTAL"
   };
 
-  // fetch all races from the database
+  // fetch all races from the database by userId
   dynamodb.scan(params, (error, result) => {
     // handle potential errors
     if (error) {

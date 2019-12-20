@@ -24,6 +24,7 @@ module.exports.create = (event, context, callback) => {
     TableName: process.env.DYNAMODB_RACES_TABLE,
     Item: {
       id: uuid.v1(),
+      userId: 1,
       createdAt: timestamp,
       updatedAt: timestamp,
       results: [...data]
