@@ -1,0 +1,91 @@
+service: aws-node-rest-api-with-dynamodb-and-offline
+
+frameworkVersion: ">=1.1.0 <2.0.0"
+
+plugins:
+  - serverless-dynamodb-local
+  - serverless-offline
+
+custom:
+  dynamodb:
+    stages:
+      - ${self:provider.stage}
+    start:
+      port: 8000
+      inMemory: true
+      migrate: true
+    migration:
+      dir: offline/migrations
+
+provider:
+  name: aws
+  runtime: nodejs8.10
+  environment:
+    DYNAMODB_TABLE: ${self:service}-${opt:stage, self:provider.stage}
+    DYNAMODB_RACES_TABLE: RacesDynamoDbTable-${opt:stage, self:provider.stage}
+  iamRoleStatements:
+    - Effect: Allow
+      Action:
+        - dynamodb:Query
+        - dynamodb:Scan
+        - dynamodb:GetItem
+        - dynamodb:PutItem
+        - dynamodb:UpdateItem
+        - dynamodb:DeleteItem
+      Resource: "arn:aws:dynamodb:${opt:region, self:provider.region}:*:table/${self:provider.environment.DYNAMODB_TABLE}"
+
+functions: # function names, like createRace, can be named anything, but must be unique
+  createRace:
+    handler: races/create.create
+    events:
+      - http:
+          path: races
+          method: post
+          cors: true
+
+  listRaces:
+    handler: races/list.list
+    events:
+      - http:
+          path: races
+          method: get
+          cors: true
+
+  getRace:
+    handler: races/get.get
+    events:
+      - http:
+          path: races/{id}
+          method: get
+          cors: true
+
+  updateRace:
+    handler: races/update.update
+    events:
+      - http:
+          path: races/{id}
+          method: put
+          cors: true
+
+  deleteRace:
+    handler: races/delete.delete
+    events:
+      - http:
+          path: races/{id}
+          method: delete
+          cors: true
+
+resources:
+  Resources:
+    RacesDynamoDbTable:
+      Type: "AWS::DynamoDB::Table"
+      DeletionPolicy: Retain
+      Properties:
+        AttributeDefinitions:
+          - AttributeName: id
+            AttributeType: S
+        KeySchema:
+          - AttributeName: id
+            KeyType: HASH
+        BillingMode: PAY_PER_REQUEST
+        TableName: ${self:provider.environment.DYNAMODB_RACES_TABLE}
