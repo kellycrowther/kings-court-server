@@ -22,16 +22,26 @@ app.get("/", function(req, res) {
   res.send("Hello World");
 });
 
-let lastEmittedData = { racers: [] };
+// let lastEmittedData = { racers: [] };
+let races = [];
 
 io.on("connection", socket => {
   console.info("New client connected");
-  socket.emit("outgoing-data", lastEmittedData);
+  // socket.emit("outgoing-data", lastEmittedData);
 
   socket.on("incoming-data", data => {
-    console.info("received data: ", data);
-    lastEmittedData = { racers: data };
-    socket.broadcast.emit("outgoing-data", { racers: data });
+    let raceToUpdate = races.findIndex(race => race && race.id === data.id);
+    if (raceToUpdate !== -1) {
+      races[raceToUpdate] = data;
+    } else if (data.id !== "") {
+      races.push(data);
+    }
+
+    socket.broadcast.emit("outgoing-data", { races: races });
+
+    for (let race of races) {
+      socket.broadcast.emit(race.id, { race });
+    }
   });
 
   socket.on("disconnect", () => console.info("Client disconnected"));

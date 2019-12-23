@@ -10,6 +10,7 @@
   "license": "ISC",
   "dependencies": {
     "express": "^4.17.1",
+    "graphql": "^0.11.7",
     "socket.io": "^2.3.0",
     "serverless-dynamodb-local": "^0.2.38",
     "uuid": "^2.0.3"

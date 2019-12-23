@@ -4,10 +4,12 @@ const dynamodb = require("./dynamodb");
 const tableName = process.env.DYNAMODB_RACES_TABLE;
 
 module.exports.list = (event, context, callback) => {
+  const userId = event.queryStringParameters.userId;
+
   const params = {
     TableName: tableName,
     FilterExpression: "userId = :val",
-    ExpressionAttributeValues: { ":val": 1 },
+    ExpressionAttributeValues: { ":val": userId },
     ReturnConsumedCapacity: "TOTAL"
   };
 

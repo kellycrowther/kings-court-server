@@ -3,6 +3,7 @@
 const dynamodb = require("./dynamodb");
 
 module.exports.delete = (event, context, callback) => {
+  const id = event.pathParameters.id;
   const params = {
     TableName: process.env.DYNAMODB_RACES_TABLE,
     Key: {
@@ -26,7 +27,7 @@ module.exports.delete = (event, context, callback) => {
     // create a response
     const response = {
       statusCode: 200,
-      body: JSON.stringify({})
+      body: JSON.stringify({ id: id })
     };
     callback(null, response);
   });

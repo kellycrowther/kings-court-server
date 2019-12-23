@@ -67,6 +67,13 @@ functions: # function names, like createRace, can be named anything, but must be
           method: put
           cors: true
 
+  query:
+    handler: races/get.query
+    events:
+      - http:
+          path: query
+          method: post
+
   deleteRace:
     handler: races/delete.delete
     events:
