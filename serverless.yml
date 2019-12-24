@@ -1,4 +1,6 @@
-service: aws-node-rest-api-with-dynamodb-and-offline
+org: kellyc
+app: kings-court
+service: kings-court
 
 frameworkVersion: ">=1.1.0 <2.0.0"
 
@@ -20,6 +22,7 @@ custom:
 provider:
   name: aws
   runtime: nodejs8.10
+  region: us-west-2
   environment:
     DYNAMODB_TABLE: ${self:service}-${opt:stage, self:provider.stage}
     DYNAMODB_RACES_TABLE: RacesDynamoDbTable-${opt:stage, self:provider.stage}
@@ -32,7 +35,7 @@ provider:
         - dynamodb:PutItem
         - dynamodb:UpdateItem
         - dynamodb:DeleteItem
-      Resource: "arn:aws:dynamodb:${opt:region, self:provider.region}:*:table/${self:provider.environment.DYNAMODB_TABLE}"
+      Resource: "arn:aws:dynamodb:${opt:region, self:provider.region}:*:table/${self:provider.environment.DYNAMODB_RACES_TABLE}"
 
 functions: # function names, like createRace, can be named anything, but must be unique
   createRace:
@@ -73,6 +76,7 @@ functions: # function names, like createRace, can be named anything, but must be
       - http:
           path: query
           method: post
+          cors: true
 
   deleteRace:
     handler: races/delete.delete

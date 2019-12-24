@@ -40,6 +40,9 @@ io.on("connection", socket => {
     socket.broadcast.emit("outgoing-data", { races: races });
 
     for (let race of races) {
+      // may need to add a socket.on for the race.id to ensure i emit when a change occures
+      // relying on incoming-data right now
+      // could ensure client broadcasts on incoming-data
       socket.broadcast.emit(race.id, { race });
     }
   });
