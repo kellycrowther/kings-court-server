@@ -21,7 +21,38 @@ module.exports.list = (event, context, callback) => {
       callback(null, {
         statusCode: error.statusCode || 501,
         headers: { "Content-Type": "text/plain" },
-        body: "Couldn't fetch the race."
+        body: "Couldn't fetch the race by user id."
+      });
+      return;
+    }
+
+    // create a response
+    const response = {
+      statusCode: 200,
+      headers: {
+        "Access-Control-Allow-Origin": "*",
+        "Access-Control-Allow-Credentials": true
+      },
+      body: JSON.stringify(result.Items)
+    };
+    callback(null, response);
+  });
+};
+
+module.exports.listAll = (event, context, callback) => {
+  const params = {
+    TableName: tableName
+  };
+
+  // fetch all races from the database by userId
+  dynamodb.scan(params, (error, result) => {
+    // handle potential errors
+    if (error) {
+      console.error(error);
+      callback(null, {
+        statusCode: error.statusCode || 501,
+        headers: { "Content-Type": "text/plain" },
+        body: "Couldn't fetch the all races."
       });
       return;
     }

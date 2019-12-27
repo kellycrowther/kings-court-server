@@ -54,6 +54,14 @@ functions: # function names, like createRace, can be named anything, but must be
           method: get
           cors: true
 
+  listAllRaces:
+    handler: races/list.listAll
+    events:
+      - http:
+          path: races-all
+          method: get
+          cors: true
+
   getRace:
     handler: races/get.get
     events:
