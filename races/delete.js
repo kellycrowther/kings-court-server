@@ -28,8 +28,12 @@ module.exports.delete = (event, context, callback) => {
     const response = {
       statusCode: 200,
       headers: {
-        "Access-Control-Allow-Origin": "*",
-        "Access-Control-Allow-Credentials": true
+        "Access-Control-Allow-Origin": "https://kings-court.kellycrowther.io",
+        "Access-Control-Allow-Credentials": true,
+        "Access-Control-Allow-Methods": "GET,HEAD,OPTIONS,POST,PUT, DELETE",
+        "Access-Control-Allow-Headers":
+          "Origin, X-Requested-With, Content-Type, Accept, Authorization, User-Agent",
+        "Content-Type": "application/json"
       },
       body: JSON.stringify({ id: id })
     };

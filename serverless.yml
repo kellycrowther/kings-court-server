@@ -44,7 +44,17 @@ functions: # function names, like createRace, can be named anything, but must be
       - http:
           path: races
           method: post
-          cors: true
+          cors:
+            origin: "*"
+            headers:
+              - Content-Type
+              - X-Amz-Date
+              - Authorization
+              - X-Api-Key
+              - X-Amz-Security-Token
+              - User-Agent
+              - X-Amz-User-Agent
+            allowCredentials: false
 
   listRaces:
     handler: races/list.list
@@ -52,7 +62,17 @@ functions: # function names, like createRace, can be named anything, but must be
       - http:
           path: races
           method: get
-          cors: true
+          cors:
+            origin: "*"
+            headers:
+              - Content-Type
+              - X-Amz-Date
+              - Authorization
+              - X-Api-Key
+              - X-Amz-Security-Token
+              - User-Agent
+              - X-Amz-User-Agent
+            allowCredentials: false
 
   listAllRaces:
     handler: races/list.listAll
@@ -60,7 +80,17 @@ functions: # function names, like createRace, can be named anything, but must be
       - http:
           path: races-all
           method: get
-          cors: true
+          cors:
+            origin: "*"
+            headers:
+              - Content-Type
+              - X-Amz-Date
+              - Authorization
+              - X-Api-Key
+              - X-Amz-Security-Token
+              - User-Agent
+              - X-Amz-User-Agent
+            allowCredentials: false
 
   getRace:
     handler: races/get.get
@@ -68,7 +98,17 @@ functions: # function names, like createRace, can be named anything, but must be
       - http:
           path: races/{id}
           method: get
-          cors: true
+          cors:
+            origin: "*"
+            headers:
+              - Content-Type
+              - X-Amz-Date
+              - Authorization
+              - X-Api-Key
+              - X-Amz-Security-Token
+              - User-Agent
+              - X-Amz-User-Agent
+            allowCredentials: false
 
   updateRace:
     handler: races/update.update
@@ -76,7 +116,17 @@ functions: # function names, like createRace, can be named anything, but must be
       - http:
           path: races/{id}
           method: put
-          cors: true
+          cors:
+            origin: "*"
+            headers:
+              - Content-Type
+              - X-Amz-Date
+              - Authorization
+              - X-Api-Key
+              - X-Amz-Security-Token
+              - User-Agent
+              - X-Amz-User-Agent
+            allowCredentials: false
 
   query:
     handler: races/get.query
@@ -84,7 +134,17 @@ functions: # function names, like createRace, can be named anything, but must be
       - http:
           path: query
           method: post
-          cors: true
+          cors:
+            origin: "*"
+            headers:
+              - Content-Type
+              - X-Amz-Date
+              - Authorization
+              - X-Api-Key
+              - X-Amz-Security-Token
+              - User-Agent
+              - X-Amz-User-Agent
+            allowCredentials: false
 
   deleteRace:
     handler: races/delete.delete
@@ -92,7 +152,17 @@ functions: # function names, like createRace, can be named anything, but must be
       - http:
           path: races/{id}
           method: delete
-          cors: true
+          cors:
+            origin: "*"
+            headers:
+              - Content-Type
+              - X-Amz-Date
+              - Authorization
+              - X-Api-Key
+              - X-Amz-Security-Token
+              - User-Agent
+              - X-Amz-User-Agent
+            allowCredentials: false
 
 resources:
   Resources:
