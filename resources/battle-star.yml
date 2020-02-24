@@ -1,0 +1,12 @@
+Resources:
+  battlestarsTable: # name of the resource to be use later
+    Type: AWS::DynamoDB::Table
+    Properties:
+      TableName: ${self:provider.environment.DYNAMODB_BATTLE_STAR_TABLE} # name of the table
+      AttributeDefinitions:
+        - AttributeName: id
+          AttributeType: S
+      KeySchema:
+        - AttributeName: id # partition key
+          KeyType: HASH
+      BillingMode: PAY_PER_REQUEST

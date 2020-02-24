@@ -6,6 +6,7 @@ frameworkVersion: ">=1.1.0 <2.0.0"
 
 plugins:
   - serverless-dynamodb-local
+  - serverless-appsync-plugin
   - serverless-offline
 
 custom:
@@ -18,14 +19,34 @@ custom:
       migrate: true
     migration:
       dir: offline/migrations
+  appSync:
+    name: ${self:service}-graphql-${self:provider.stage}
+    authenticationType: API_KEY # use API_KEY in this tutorial
+    dataSources:
+      - type: AMAZON_DYNAMODB
+        name: battlestarsSource # name of the resource
+        config:
+          tableName: BattleStarDynamoDbTable-${opt:stage, self:provider.stage} # name of our DynamoDB table
+    mappingTemplates:
+      - dataSource: battlestarsSource
+        type: Query
+        field: listBattlestars # from the query in schema.graphql
+        request: "list_battlestars/request.vtl"
+        response: "list_battlestars/response.vtl"
+      - dataSource: battlestarsSource
+        type: Mutation
+        field: putBattlestar # from the mutation in schema.graphql
+        request: "put_battlestar/request.vtl"
+        response: "put_battlestar/response.vtl"
 
 provider:
   name: aws
-  runtime: nodejs8.10
+  runtime: nodejs12.x
   region: us-west-2
   environment:
     DYNAMODB_TABLE: ${self:service}-${opt:stage, self:provider.stage}
     DYNAMODB_RACES_TABLE: RacesDynamoDbTable-${opt:stage, self:provider.stage}
+    DYNAMODB_BATTLE_STAR_TABLE: BattleStarDynamoDbTable-${opt:stage, self:provider.stage}
   iamRoleStatements:
     - Effect: Allow
       Action:
@@ -165,16 +186,5 @@ functions: # function names, like createRace, can be named anything, but must be
             allowCredentials: false
 
 resources:
-  Resources:
-    RacesDynamoDbTable:
-      Type: "AWS::DynamoDB::Table"
-      DeletionPolicy: Retain
-      Properties:
-        AttributeDefinitions:
-          - AttributeName: id
-            AttributeType: S
-        KeySchema:
-          - AttributeName: id
-            KeyType: HASH
-        BillingMode: PAY_PER_REQUEST
-        TableName: ${self:provider.environment.DYNAMODB_RACES_TABLE}
+  - ${file(resources/battle-star.yml)}
+  - ${file(resources/dynamodb-races-table.yml)}
