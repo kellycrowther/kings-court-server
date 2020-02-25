@@ -5,13 +5,42 @@ type Battlestar {
   # the name of the Battlestar
   name: String!
 }
+type Result {
+  teamName: String
+  round1Heat: Int
+  round1Result: Int
+  seed: Int
+  round2Result: Int
+  round3Result: Int
+  bib: Int
+  firstName: String
+  gender: String
+  lastName: String
+  fullName: String
+}
+
+type Race {
+  id: ID!
+  name: String!
+  userId: String!
+  wsName: String
+  createdAt: String
+  updatedAt: String
+  results: [Result]
+}
 # Define the queries
 type Query {
   # list all Battlestars
   listBattlestars: [Battlestar]
+  listRaces: [Race]
 }
 # Define the input to create a Battlestar
 input PutBattlestarInput {
+  # the name of the Battlestar to create
+  name: String!
+}
+
+input PutRaceInput {
   # the name of the Battlestar to create
   name: String!
 }
@@ -19,9 +48,12 @@ input PutBattlestarInput {
 type Mutation {
   # Create a Battlestar
   putBattlestar(input: PutBattlestarInput): Battlestar
+  putRace(input: PutRaceInput): Race
 }
+
 type Subscription {
   addBattleStar: Battlestar @aws_subscribe(mutations: ["putBattlestar"])
+  addRace: Race @aws_subscribe(mutations: ["putRace"])
 }
 # Define the schema
 schema {

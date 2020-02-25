@@ -27,6 +27,10 @@ custom:
         name: battlestarsSource # name of the resource
         config:
           tableName: BattleStarDynamoDbTable-${opt:stage, self:provider.stage} # name of our DynamoDB table
+      - type: AMAZON_DYNAMODB
+        name: racesSource # name of the resource
+        config:
+          tableName: RacesDynamoDbTable-${opt:stage, self:provider.stage} # name of our DynamoDB table
     mappingTemplates:
       - dataSource: battlestarsSource
         type: Query
@@ -38,6 +42,16 @@ custom:
         field: putBattlestar # from the mutation in schema.graphql
         request: "put_battlestar/request.vtl"
         response: "put_battlestar/response.vtl"
+      - dataSource: racesSource
+        type: Query
+        field: listRaces # from the query in schema.graphql
+        request: "list_races/request.vtl"
+        response: "list_races/response.vtl"
+      - dataSource: racesSource
+        type: Mutation
+        field: putRace # from the mutation in schema.graphql
+        request: "put_race/request.vtl"
+        response: "put_race/response.vtl"
 
 provider:
   name: aws
