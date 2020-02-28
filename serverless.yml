@@ -7,6 +7,7 @@ frameworkVersion: ">=1.1.0 <2.0.0"
 plugins:
   - serverless-dynamodb-local
   - serverless-appsync-plugin
+  - serverless-appsync-offline
   - serverless-offline
 
 custom:
@@ -45,13 +46,28 @@ custom:
       - dataSource: racesSource
         type: Query
         field: listRaces # from the query in schema.graphql
-        request: "list_races/request.vtl"
-        response: "list_races/response.vtl"
+        request: "races/list_races/request.vtl"
+        response: "races/list_races/response.vtl"
       - dataSource: racesSource
         type: Mutation
         field: putRace # from the mutation in schema.graphql
-        request: "put_race/request.vtl"
-        response: "put_race/response.vtl"
+        request: "races/put_race/request.vtl"
+        response: "races/put_race/response.vtl"
+      - dataSource: racesSource
+        type: Mutation
+        field: deleteRace # from the mutation in schema.graphql
+        request: "races/delete_race/request.vtl"
+        response: "races/delete_race/response.vtl"
+      - dataSource: racesSource
+        type: Mutation
+        field: updateRace # from the mutation in schema.graphql
+        request: "races/update_race/request.vtl"
+        response: "races/update_race/response.vtl"
+  appsync-offline: # appsync-offline configuration
+    port: 62222
+    dynamodb:
+      client:
+        endpoint: "http://localhost:8000"
 
 provider:
   name: aws

@@ -44,11 +44,32 @@ input PutRaceInput {
   # the name of the Battlestar to create
   name: String!
 }
+
+input ResultInput {
+  teamName: String
+  round1Heat: Int
+  round1Result: Int
+  seed: Int
+  round2Result: Int
+  round3Result: Int
+  bib: Int
+  firstName: String
+  gender: String
+  lastName: String
+  fullName: String
+}
+
+input UpdateRaceInput {
+  id: String!
+  name: String!
+}
 # Define the mutations
 type Mutation {
   # Create a Battlestar
   putBattlestar(input: PutBattlestarInput): Battlestar
   putRace(input: PutRaceInput): Race
+  deleteRace(id: ID!): Race
+  updateRace(input: UpdateRaceInput): Race
 }
 
 type Subscription {
