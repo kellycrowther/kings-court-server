@@ -5,12 +5,14 @@
     "id": $util.dynamodb.toDynamoDBJson($context.arguments.input.id)
   },
   "update" : {
-    "expression" : "SET #name = :name",
+    "expression" : "SET #name = :name, results = :results, updatedAt = :updatedAt",
     "expressionNames": {
       "#name" : "name"
     },
     "expressionValues": {
-      ":name": $util.dynamodb.toDynamoDBJson("Kelly 3"),
+      ":name": $util.dynamodb.toDynamoDBJson($context.arguments.input.name),
+      ":results": $util.dynamodb.toDynamoDBJson($context.arguments.input.results),
+      ":updatedAt": $util.dynamodb.toDynamoDBJson($util.time.nowISO8601())
     }
   },
 }
