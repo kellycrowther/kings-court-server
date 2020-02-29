@@ -55,7 +55,7 @@ input ResultInput {
   fullName: String
 }
 
-input PutRaceInput {
+input CreateRaceInput {
   # the name of the race to create
   name: String!
   # the array of results for each racer
@@ -71,14 +71,14 @@ input UpdateRaceInput {
 type Mutation {
   # Create a Battlestar
   putBattlestar(input: PutBattlestarInput): Battlestar
-  putRace(input: PutRaceInput): Race
+  createRace(input: CreateRaceInput): Race
   deleteRace(id: ID!): Race
   updateRace(input: UpdateRaceInput): Race
 }
 
 type Subscription {
   addBattleStar: Battlestar @aws_subscribe(mutations: ["putBattlestar"])
-  addRace: Race @aws_subscribe(mutations: ["putRace"])
+  addRace: Race @aws_subscribe(mutations: ["createRace"])
   modifyRace: Race @aws_subscribe(mutations: ["updateRace"])
 }
 # Define the schema
