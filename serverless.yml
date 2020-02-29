@@ -49,6 +49,11 @@ custom:
         request: "races/list_races/request.vtl"
         response: "races/list_races/response.vtl"
       - dataSource: racesSource
+        type: Query
+        field: getRace # from the query in schema.graphql
+        request: "races/get_race/request.vtl"
+        response: "races/get_race/response.vtl"
+      - dataSource: racesSource
         type: Mutation
         field: putRace # from the mutation in schema.graphql
         request: "races/put_race/request.vtl"

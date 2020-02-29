@@ -33,14 +33,10 @@ type Query {
   # list all Battlestars
   listBattlestars: [Battlestar]
   listRaces: [Race]
+  getRace(id: ID): Race
 }
 # Define the input to create a Battlestar
 input PutBattlestarInput {
-  # the name of the Battlestar to create
-  name: String!
-}
-
-input PutRaceInput {
   # the name of the Battlestar to create
   name: String!
 }
@@ -57,6 +53,13 @@ input ResultInput {
   gender: String
   lastName: String
   fullName: String
+}
+
+input PutRaceInput {
+  # the name of the race to create
+  name: String!
+  # the array of results for each racer
+  results: [ResultInput]
 }
 
 input UpdateRaceInput {
@@ -76,6 +79,7 @@ type Mutation {
 type Subscription {
   addBattleStar: Battlestar @aws_subscribe(mutations: ["putBattlestar"])
   addRace: Race @aws_subscribe(mutations: ["putRace"])
+  modifyRace: Race @aws_subscribe(mutations: ["updateRace"])
 }
 # Define the schema
 schema {
