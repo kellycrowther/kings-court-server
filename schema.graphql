@@ -17,6 +17,7 @@ type Result {
   gender: String
   lastName: String
   fullName: String
+  uuid: String
 }
 
 type Race {
@@ -53,11 +54,16 @@ input ResultInput {
   gender: String
   lastName: String
   fullName: String
+  uuid: String
 }
 
 input CreateRaceInput {
   # the name of the race to create
   name: String!
+  # the id of the user creating the race
+  userId: String!
+  # the associated organization
+  organization: String
   # the array of results for each racer
   results: [ResultInput]
 }
