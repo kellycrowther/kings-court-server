@@ -82,6 +82,8 @@ type Mutation {
   updateRace(input: UpdateRaceInput): Race
 }
 
+# subscriptions will not work locally
+# make sure to change the React and Insomnia environment
 type Subscription {
   addBattleStar: Battlestar @aws_subscribe(mutations: ["putBattlestar"])
   addRace: Race @aws_subscribe(mutations: ["createRace"])
