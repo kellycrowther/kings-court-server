@@ -35,6 +35,7 @@ type Query {
   listBattlestars: [Battlestar]
   listRaces: [Race]
   getRace(id: ID): Race
+  getRacesByUserId(userId: String!): [Race]
 }
 # Define the input to create a Battlestar
 input PutBattlestarInput {

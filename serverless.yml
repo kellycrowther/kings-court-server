@@ -50,6 +50,11 @@ custom:
         response: "races/list_races/response.vtl"
       - dataSource: racesSource
         type: Query
+        field: getRacesByUserId # from the query in schema.graphql
+        request: "races/get_races_by_user_id/request.vtl"
+        response: "races/get_races_by_user_id/response.vtl"
+      - dataSource: racesSource
+        type: Query
         field: getRace # from the query in schema.graphql
         request: "races/get_race/request.vtl"
         response: "races/get_race/response.vtl"
