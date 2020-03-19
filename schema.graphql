@@ -8,10 +8,15 @@ type Battlestar {
 type Result {
   teamName: String
   round1Heat: Int
+  round2Heat: Int
+  round3Heat: Int
   round1Result: Int
   seed: Int
+  round2Seed: Int
+  round3Seed: Int
   round2Result: Int
   round3Result: Int
+  finalResult: Int
   bib: Int
   firstName: String
   gender: String
@@ -46,10 +51,15 @@ input PutBattlestarInput {
 input ResultInput {
   teamName: String
   round1Heat: Int
+  round2Heat: Int
+  round3Heat: Int
   round1Result: Int
   seed: Int
+  round2Seed: Int
+  round3Seed: Int
   round2Result: Int
   round3Result: Int
+  finalResult: Int
   bib: Int
   firstName: String
   gender: String
