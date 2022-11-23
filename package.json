@@ -21,7 +21,7 @@
     "serverless-appsync-plugin": "^1.1.2",
     "serverless-appsync-simulator": "^0.3.4",
     "serverless-dynamodb-local": "^0.2.38",
-    "socket.io": "^2.3.0",
+    "socket.io": "^2.5.0",
     "uuid": "^2.0.3"
   },
   "devDependencies": {
