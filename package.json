@@ -15,7 +15,7 @@
   "author": "Kelly Crowther",
   "license": "ISC",
   "dependencies": {
-    "express": "^4.17.1",
+    "express": "^4.17.3",
     "graphql": "^0.11.7",
     "npm-force-resolutions": "0.0.3",
     "serverless-appsync-plugin": "^1.1.2",
